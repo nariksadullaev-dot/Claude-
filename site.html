@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Моя первая страница</title>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;800&family=Onest:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  /* ===== CSS: оформление ===== */
+  :root {
+    --bg: #eef2f3; --card: #ffffff; --text: #16232e;
+    --muted: #5a6b78; --accent: #1f6f8b; --gold: #e8a317; --line: #d3dde2;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0f1a22; --card: #17262f; --text: #e6eef2;
+      --muted: #93a6b2; --accent: #5fb7d4; --gold: #f2b83a; --line: #28404d;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0f1a22; --card: #17262f; --text: #e6eef2;
+    --muted: #93a6b2; --accent: #5fb7d4; --gold: #f2b83a; --line: #28404d;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: "Onest", system-ui, sans-serif; line-height: 1.6;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 24px 20px 48px; }
+  h1, h2 { font-family: "Unbounded", system-ui, sans-serif; line-height: 1.15; }
+  h1 { font-size: clamp(2rem, 8vw, 3.2rem); font-weight: 800; margin: 0 0 12px; }
+  h2 { font-size: 1.3rem; margin: 0 0 16px; }
+
+  header.top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; }
+  .logo { font-family: "Unbounded", sans-serif; font-weight: 600; }
+  button {
+    font: inherit; cursor: pointer; border: 1px solid var(--line);
+    background: var(--card); color: var(--text);
+    border-radius: 10px; padding: 8px 14px;
+  }
+  button:focus-visible, input:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+
+  .hero { padding: 8px 0 40px; }
+  .hero p { color: var(--muted); font-size: 1.1rem; max-width: 46ch; }
+  .peaks { display: block; width: 100%; height: auto; margin-top: 24px; }
+  .peaks .far { fill: var(--line); }
+  .peaks .near { fill: var(--accent); }
+  .peaks .sun { fill: var(--gold); }
+
+  section { margin-top: 40px; }
+  .skill { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; margin-bottom: 10px; }
+  .skill-row { display: flex; justify-content: space-between; font-weight: 600; margin-bottom: 8px; }
+  .bar { height: 8px; background: var(--line); border-radius: 99px; overflow: hidden; }
+  .bar > span { display: block; height: 100%; width: 0; background: var(--accent); border-radius: 99px; transition: width .8s ease; }
+
+  form.add { display: flex; gap: 8px; margin-bottom: 14px; }
+  input[type="text"] {
+    flex: 1; min-width: 0; font: inherit; padding: 10px 12px;
+    border: 1px solid var(--line); border-radius: 10px;
+    background: var(--card); color: var(--text);
+  }
+  .add button { background: var(--accent); color: #fff; border-color: var(--accent); font-weight: 600; }
+  ul.tasks { list-style: none; margin: 0; padding: 0; }
+  ul.tasks li {
+    display: flex; align-items: center; gap: 10px;
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: 12px; padding: 10px 14px; margin-bottom: 8px;
+  }
+  ul.tasks li.done span { text-decoration: line-through; color: var(--muted); }
+  ul.tasks span { flex: 1; cursor: pointer; }
+  ul.tasks .del { padding: 4px 10px; }
+  .empty { color: var(--muted); }
+  .skill h3 { margin: 0; font-family: "Unbounded", sans-serif; font-size: 1.05rem; }
+  .skill { padding: 16px; margin-bottom: 18px; }
+  .skill .bar { margin-bottom: 14px; height: 10px; }
+  .skill-row .pct { color: var(--accent); font-weight: 800; }
+  .skill ul.tasks li { padding: 8px 12px; margin-bottom: 6px; }
+  .skill form.add { margin: 10px 0 0; }
+  footer { margin-top: 48px; color: var(--muted); font-size: .9rem; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ===== HTML: структура страницы ===== -->
+  <header class="top">
+    <div class="logo">Нариман</div>
+    <button id="themeBtn" type="button" aria-label="Сменить тему">Тема</button>
+  </header>
+
+  <div class="hero">
+    <h1>Привет! Я учусь делать сайты</h1>
+    <p>Это моя первая страница: HTML задаёт структуру, CSS — внешний вид, JavaScript — оживляет её.</p>
+    <svg class="peaks" viewBox="0 0 600 160" role="img" aria-label="Горы">
+      <circle class="sun" cx="470" cy="45" r="22"/>
+      <path class="far" d="M0 160 L110 55 L190 115 L290 30 L410 130 L500 80 L600 140 L600 160 Z"/>
+      <path class="near" d="M0 160 L90 105 L170 140 L260 90 L360 150 L450 110 L600 160 Z"/>
+    </svg>
+  </div>
+
+  <section>
+    <h2>Мой путь в программирование</h2>
+    <div id="skills"></div>
+  </section>
+
+  <footer>Нажми на задачу, чтобы зачеркнуть её. Шкала растёт по мере выполнения.</footer>
+</div>
+
+<script>
+  // ===== JavaScript: поведение страницы =====
+
+  // 1. Данные: у каждого навыка свой список задач
+  const KEY = "nariman-skills-v1";
+  const defaults = {
+    "HTML":       [{text:"Выучить основные теги", done:true}, {text:"Сделать форму", done:false}],
+    "CSS":        [{text:"Flexbox", done:false}, {text:"Сделать адаптивный сайт", done:false}],
+    "JavaScript": [{text:"Переменные и функции", done:false}],
+    "Python":     [{text:"Циклы и условия", done:false}],
+    "Django":     [{text:"Установить Django", done:false}]
+  };
+
+  // Сохраняем в браузере, чтобы после обновления страницы всё осталось
+  function load() {
+    try { const s = localStorage.getItem(KEY); if (s) return JSON.parse(s); } catch (e) {}
+    return JSON.parse(JSON.stringify(defaults));
+  }
+  function save() {
+    try { localStorage.setItem(KEY, JSON.stringify(data)); } catch (e) {}
+  }
+  const data = load();
+
+  // 2. Одна карточка навыка: название, шкала, задачи, форма
+  function buildCard(name) {
+    const tasks = data[name];
+    const card = document.createElement("div");
+    card.className = "skill";
+    card.innerHTML =
+      `<div class="skill-row"><h3>${name}</h3><span class="pct">0%</span></div>
+       <div class="bar"><span></span></div>
+       <ul class="tasks"></ul>
+       <form class="add">
+         <input type="text" placeholder="Новая задача для ${name}" aria-label="Новая задача для ${name}" required>
+         <button type="submit">Добавить</button>
+       </form>`;
+
+    const pct = card.querySelector(".pct");
+    const fill = card.querySelector(".bar > span");
+    const ul = card.querySelector("ul");
+
+    function update() {
+      ul.innerHTML = "";
+      tasks.forEach((t, i) => {
+        const li = document.createElement("li");
+        if (t.done) li.classList.add("done");
+
+        const span = document.createElement("span");
+        span.textContent = t.text;
+        span.onclick = () => { t.done = !t.done; save(); update(); };
+
+        const del = document.createElement("button");
+        del.className = "del";
+        del.textContent = "✕";
+        del.setAttribute("aria-label", "Удалить задачу");
+        del.onclick = () => { tasks.splice(i, 1); save(); update(); };
+
+        li.append(span, del);
+        ul.append(li);
+      });
+      // Процент = выполненные задачи / все задачи
+      const done = tasks.filter(t => t.done).length;
+      const p = tasks.length ? Math.round(done / tasks.length * 100) : 0;
+      pct.textContent = p + "%";
+      fill.style.width = p + "%";
+    }
+
+    card.querySelector("form").addEventListener("submit", e => {
+      e.preventDefault();
+      const input = card.querySelector("input");
+      const text = input.value.trim();
+      if (text) { tasks.push({ text, done: false }); input.value = ""; save(); update(); }
+    });
+
+    update();
+    return card;
+  }
+
+  const box = document.getElementById("skills");
+  Object.keys(data).forEach(name => box.append(buildCard(name)));
+
+  // 3. Смена темы (светлая / тёмная)
+  const root = document.documentElement;
+  let theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  root.dataset.theme = theme;
+  document.getElementById("themeBtn").onclick = () => {
+    theme = theme === "dark" ? "light" : "dark";
+    root.dataset.theme = theme;
+  };
+</script>
+</body>
+</html>
